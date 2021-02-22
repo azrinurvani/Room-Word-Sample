@@ -10,11 +10,13 @@ import com.mobile.azrinurvani.roomwordssample.adapter.WordListAdapter;
 import com.mobile.azrinurvani.roomwordssample.model.entity.Word;
 import com.mobile.azrinurvani.roomwordssample.viewModel.WordViewModel;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -68,6 +70,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //TODO 35 - In MainActivity, in onCreate(), create the ItemTouchHelper. Attach the ItemTouchHelper to the RecyclerView.
+        // Add the functionality to swipe items in the
+        // recycler view to delete that item
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                        int position = viewHolder.getAdapterPosition();
+                        Word myWord = adapter.getWordAtPosition(position);
+                        Toast.makeText(MainActivity.this, "Deleting " + myWord.getWord(), Toast.LENGTH_LONG).show();
+
+                        //Deleting the word
+                        mWordViewModel.deleteWord(myWord);
+                    }
+                }
+        );
+        helper.attachToRecyclerView(recyclerView);
     }
 
     //TODO 23 - Add onActivityResult for Result Intent
@@ -97,8 +121,15 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        // TODO 29 - In MainActivity, implement the onOptionsItemSelected() method to invoke the deleteAll() method on the WordViewModel object.
+        if (id == R.id.clear_data) {
+            // Add a toast just for confirmation
+            Toast.makeText(this, "Clearing the data...", Toast.LENGTH_SHORT).show();
+            //Delete the existing data
+            mWordViewModel.deleteAll();
+
             return true;
         }
 

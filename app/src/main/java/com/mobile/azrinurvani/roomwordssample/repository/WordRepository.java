@@ -50,4 +50,50 @@ public class WordRepository {
             return null;
         }
     }
+
+    // TODO 26 - In the WordRepository class, add the deleteAll() method to invoke the AsyncTask that you defined.
+    public void deleteAll(){
+        new deleteAllWordsAsynctask(mWordDao).execute();
+    }
+
+    //TODO 32 - In WordRepository, add the deleteWord() method to invoke the AsyncTask you defined.
+    public void deleteWord(Word word){
+        new deleteWordAsynctask(mWordDao).execute(word);
+    }
+
+
+    // TODO 25 - Add deleteAll() to the WordRepository class
+    //  In WordRepository, define deleteAllWordsAsyncTask as an inner class.
+    //  Implement doInBackground() to delete all the words by calling deleteAll() on the DAO:
+    private static class deleteAllWordsAsynctask extends AsyncTask<Void,Void,Void>{
+        private WordDao mAsynctaskDao;
+
+
+        deleteAllWordsAsynctask(WordDao wordDao){
+            mAsynctaskDao = wordDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mAsynctaskDao.deleteAll();
+            return null;
+        }
+    }
+
+    //TODO 31 - In WordRepository, define another AsyncTask called deleteWordAsyncTask as an inner class.
+    // Implement doInBackground() to delete a word by calling deleteWord() on the DAO:
+    private static class deleteWordAsynctask extends AsyncTask<Word,Void,Void>{
+        private WordDao mAsynctaskDao;
+
+        deleteWordAsynctask(WordDao wordDao){
+            mAsynctaskDao = wordDao;
+        }
+
+        @Override
+        protected Void doInBackground(final Word... params) {
+            mAsynctaskDao.deleteWord(params[0]);
+            return null;
+        }
+    }
+
 }

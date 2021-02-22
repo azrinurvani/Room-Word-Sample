@@ -58,6 +58,11 @@ public class WordListAdapter extends RecyclerView.Adapter<WordListAdapter.WordVi
         notifyDataSetChanged();
     }
 
+    //TODO 34 - In WordListAdapter, add a method to get the word at a given position.
+    public Word getWordAtPosition(int position){
+        return mWords.get(position);
+    }
+
     public class WordViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
 

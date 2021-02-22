@@ -11,6 +11,9 @@
         <item name="colorOnSecondary">@color/colorTextPrimary</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:actionMenuTextColor">@color/colorTextPrimary</item>
+        <item name="actionBarItemBackground">@color/colorPrimary</item>
+        <item name="popupTheme">@style/popupTheme</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

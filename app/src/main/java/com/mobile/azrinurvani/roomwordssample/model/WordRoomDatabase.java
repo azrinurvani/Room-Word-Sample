@@ -72,12 +72,19 @@ public abstract class WordRoomDatabase extends RoomDatabase {
             // when it is first created
             // Seluruh data akan dihapus kembali apabila Aplikasi di Close (Destroy)
             // Kecuali data Array words yang ada di Class ini yaitu {cobra,crocodile,dolphin}
-            mDao.deleteAll();
+            //Hapus method ini agar setiap penambahan item atau kata dan apk ditutup tidak menghapus data yang telah ditambah
+            // mDao.deleteAll();
+            // TODO 24 update the doInBackground() method to check whether the database has any words before initializing the data:
 
-            for (int i=0;i<=words.length - 1;i++){
-                Word word = new Word(words[i]);
-                mDao.insert(word);
+
+            // If we have no words, then create the initial list of words
+            if (mDao.getAnyWord().length<1){
+                for (int i=0;i<=words.length - 1;i++){
+                    Word word = new Word(words[i]);
+                    mDao.insert(word);
+                }
             }
+
             return null;
         }
     }

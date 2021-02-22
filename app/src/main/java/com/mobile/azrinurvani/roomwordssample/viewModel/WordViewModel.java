@@ -32,6 +32,15 @@ public class WordViewModel extends AndroidViewModel {
         mRepository.insert(word);
     }
 
+    // TODO 27 - Add deleteAll() to the WordViewModel class
+    public void deleteAll(){
+        mRepository.deleteAll();
+    }
+
+    //TODO 33 - Add deleteWord() to the WordViewModel class
+    public void deleteWord(Word word){
+        mRepository.deleteWord(word);
+    }
 
     //Note : Apa perbedaan extends dari ViewModel() dengan AndroidViewModel ?
 }
